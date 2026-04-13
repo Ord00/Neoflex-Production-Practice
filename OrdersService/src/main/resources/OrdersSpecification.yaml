@@ -1,0 +1,72 @@
+openapi: 3.0.3
+info:
+  title: OrdersService
+  description: Сервис заявки на резервирование товара
+  version: 1.0.0
+servers:
+  - url: http://localhost:8081
+paths:
+  /order:
+    post:
+      operationId: createOrder
+      summary: Резервирование товара
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrdersRequest"
+      responses:
+        '200':
+          description: Успешное резервирование товара
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrdersResponse"
+        '400':
+          description: Неверные данные
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrdersResponse"
+
+components:
+  schemas:
+    OrdersRequest:
+      type: object
+      required:
+        - id_order
+        - id_product
+        - count
+        - id_user
+      properties:
+        id_order:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+        id_product:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426655440000
+        count:
+          type: integer
+          example: 10
+        id_user:
+          type: string
+          format: uuid
+          example: 019d2555-786c-73e9-a031-4a7936df7d56
+    OrdersResponse:
+      type: object
+      required:
+        - request
+        - status
+      properties:
+        request:
+          $ref: "#/components/schemas/OrdersRequest"
+        status:
+          type: string
+          enum: [success, fail]
+
+  
