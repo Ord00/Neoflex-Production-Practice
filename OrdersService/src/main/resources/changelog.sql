@@ -1,4 +1,4 @@
-CREATE TABLE orders
+create table orders
 (
     id_order uuid primary key,
     id_product varchar(36) not null,
