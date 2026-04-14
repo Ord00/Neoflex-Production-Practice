@@ -3,12 +3,14 @@ package neoflex.prod.practice.entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
 import java.util.UUID;
 
 @Entity
+@Table(name = "products")
 public class ProductsEntity {
     @Id
     @Column(name = "id_product", nullable = false)
