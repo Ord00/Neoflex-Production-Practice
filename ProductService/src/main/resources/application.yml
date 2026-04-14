@@ -1,0 +1,4 @@
+kafka:
+  topics:
+    reserve:
+      product: "ReserveProduct"
