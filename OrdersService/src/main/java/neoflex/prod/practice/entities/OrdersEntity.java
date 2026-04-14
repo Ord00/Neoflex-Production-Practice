@@ -3,11 +3,13 @@ package neoflex.prod.practice.entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.time.Instant;
 import java.util.UUID;
 
 @Entity
+@Table(name = "orders")
 public class OrdersEntity {
     @Id
     @Column(name = "id_order", nullable = false)
