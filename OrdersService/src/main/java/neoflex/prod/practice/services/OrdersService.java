@@ -5,6 +5,9 @@ import neoflex.prod.practice.dto.OrdersResponse;
 import neoflex.prod.practice.entities.OrdersEntity;
 import neoflex.prod.practice.mappers.OrdersMapper;
 import neoflex.prod.practice.repositories.OrdersRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.event.Level;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class OrdersService {
+    private final Logger logger = LoggerFactory.getLogger(OrdersService.class);
     private final OrdersRepository ordersRepository;
     private final OrdersMapper ordersMapper;
 
@@ -27,15 +31,17 @@ public class OrdersService {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    @Transactional
     public void saveOrder(OrdersRequest request) {
+        logger.atLevel(Level.INFO).log("Сохранение заявки");
         OrdersEntity ordersEntity = ordersMapper.toEntity(request);
         ordersRepository.save(ordersEntity);
+        logger.atLevel(Level.INFO).log("Заявка сохранена");
     }
 
     @Transactional
     public OrdersResponse order(OrdersRequest request) {
         try {
+            logger.atLevel(Level.INFO).log("Отпрака события");
             kafkaTemplate.send(reserveProductTopic, request);
             saveOrder(request);
             return new OrdersResponse(request, OrdersResponse.StatusEnum.SUCCESS);
