@@ -27,6 +27,7 @@ public class OrdersService {
         this.kafkaTemplate = kafkaTemplate;
     }
 
+    @Transactional
     public void saveOrder(OrdersRequest request) {
         OrdersEntity ordersEntity = ordersMapper.toEntity(request);
         ordersRepository.save(ordersEntity);
