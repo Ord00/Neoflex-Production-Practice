@@ -21,19 +21,20 @@ public class ProductsService {
     }
 
     @Transactional
-    public void reserveProduct(UUID productId, int count) {
-        logger.atLevel(Level.INFO).log("Поиск продукта для резервирования");
+    public void reserveProduct(UUID idProduct, int count) {
+        logger.atLevel(Level.INFO).log("Поиск продукта для резервирования c idProduct = {}", idProduct);
 
-        Optional<ProductsEntity> productsEntity = productsRepository.findById(productId);
+        Optional<ProductsEntity> productsEntity = productsRepository.findById(idProduct);
         if (productsEntity.isPresent()) {
             ProductsEntity product = productsEntity.get();
             int oldCount = product.getCount();
             int newCount = product.getCount() - count;
             product.setCount(newCount);
-            logger.atLevel(Level.INFO).log("Изменение count продукта c {}, на {}", oldCount, newCount);
+            logger.atLevel(Level.INFO).log("Изменение count продукта (idProduct = {}) c {}, на {}",
+                    idProduct, oldCount, newCount);
             productsRepository.save(product);
         } else {
-            logger.atLevel(Level.ERROR).log("Продукт с idProduct = {} не найден", productId);
+            logger.atLevel(Level.ERROR).log("Продукт с idProduct = {} не найден", idProduct);
         }
     }
 }
