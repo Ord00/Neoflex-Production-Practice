@@ -32,16 +32,16 @@ public class OrdersService {
     }
 
     public void saveOrder(OrdersRequest request) {
-        logger.atLevel(Level.INFO).log("Сохранение заявки");
+        logger.atLevel(Level.INFO).log("Сохранение заявки c idOrder = {}", request.getIdOrder());
         OrdersEntity ordersEntity = ordersMapper.toEntity(request);
         ordersRepository.save(ordersEntity);
-        logger.atLevel(Level.INFO).log("Заявка сохранена");
+        logger.atLevel(Level.INFO).log("Заявка сохранена c idOrder = {}", request.getIdOrder());
     }
 
     @Transactional
     public OrdersResponse order(OrdersRequest request) {
         try {
-            logger.atLevel(Level.INFO).log("Отпрака события");
+            logger.atLevel(Level.INFO).log("Отправка сообщения с idOrder = {}", request.getIdOrder());
             kafkaTemplate.send(reserveProductTopic, request);
             saveOrder(request);
             return new OrdersResponse(request, OrdersResponse.StatusEnum.SUCCESS);
