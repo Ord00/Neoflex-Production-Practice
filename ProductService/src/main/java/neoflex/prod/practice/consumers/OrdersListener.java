@@ -1,6 +1,7 @@
 package neoflex.prod.practice.consumers;
 
 
+import neoflex.prod.practice.dto.ReserveProductDto;
 import neoflex.prod.practice.services.ProductsService;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
