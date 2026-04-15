@@ -19,13 +19,13 @@ public class OrdersService {
     private final OrdersRepository ordersRepository;
     private final OrdersMapper ordersMapper;
 
-    private final KafkaTemplate<String, OrdersRequest> kafkaTemplate;
+    private final KafkaTemplate<String, ReserveProductDto> kafkaTemplate;
     @Value("${kafka.topics.reserve.product}")
     private String reserveProductTopic;
 
     public OrdersService(OrdersRepository ordersRepository,
                          OrdersMapper ordersMapper,
-                         KafkaTemplate<String, OrdersRequest> kafkaTemplate) {
+                         KafkaTemplate<String, ReserveProductDto> kafkaTemplate) {
         this.ordersRepository = ordersRepository;
         this.ordersMapper = ordersMapper;
         this.kafkaTemplate = kafkaTemplate;
@@ -42,7 +42,8 @@ public class OrdersService {
     public OrdersResponse order(OrdersRequest request) {
         try {
             logger.atLevel(Level.INFO).log("Отправка сообщения с idOrder = {}", request.getIdOrder());
-            kafkaTemplate.send(reserveProductTopic, request);
+            kafkaTemplate.send(reserveProductTopic,
+                    new ReserveProductDto(request.getIdProduct(), request.getCount()));
             saveOrder(request);
             return new OrdersResponse(request, OrdersResponse.StatusEnum.SUCCESS);
         } catch (Exception e) {
