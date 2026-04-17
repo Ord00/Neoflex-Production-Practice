@@ -25,7 +25,7 @@ public class OrdersEntity {
     private String idUser;
 
     @Column(name = "date_create", nullable = false)
-    private Instant dateCreate;
+    private Instant dateCreate = Instant.now();
 
     public Instant getDateCreate() {
         return dateCreate;
