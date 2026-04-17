@@ -42,12 +42,15 @@ public class OrdersService {
     @Transactional
     public OrdersResponse order(OrdersRequest request) {
         try {
+            ReserveProductDto dto = new ReserveProductDto();
+            dto.setIdProduct(request.getIdProduct());
+            dto.setCount(request.getCount());
             logger.atLevel(Level.INFO).log("Отправка сообщения с idOrder = {}", request.getIdOrder());
-            kafkaTemplate.send(reserveProductTopic,
-                    new ReserveProductDto(request.getIdProduct(), request.getCount()));
+            kafkaTemplate.send(reserveProductTopic, dto);
             saveOrder(request);
             return new OrdersResponse(request, OrdersResponse.StatusEnum.SUCCESS);
         } catch (Exception e) {
+            logger.atLevel(Level.ERROR).log(e.getMessage());
             return new OrdersResponse(request, OrdersResponse.StatusEnum.FAIL);
         }
     }
