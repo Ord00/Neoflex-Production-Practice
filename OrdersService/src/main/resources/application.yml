@@ -9,3 +9,7 @@ kafka:
   topics:
     reserve:
       product: reserve-product
+
+server:
+  port: 8081
+  url: "http://localhost:${server.port}"
