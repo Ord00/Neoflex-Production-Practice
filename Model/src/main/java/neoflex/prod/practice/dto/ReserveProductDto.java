@@ -6,10 +6,7 @@ public class ReserveProductDto {
     private UUID idProduct;
     private int count;
 
-    public ReserveProductDto(UUID idProduct, int count) {
-        this.idProduct = idProduct;
-        this.count = count;
-    }
+    public ReserveProductDto() {}
 
     public UUID getIdProduct() {
         return idProduct;
