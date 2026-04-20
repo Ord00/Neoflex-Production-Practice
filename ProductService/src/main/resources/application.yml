@@ -19,3 +19,25 @@ kafka:
 server:
   port: 8082
   url: "http://localhost:${server.port}"
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: http://${JAEGER_SERVICE:localhost}:4317
+
+otel:
+  resource:
+    attributes:
+      service.name: ProductService
+  traces:
+    exporter: otlp
+  metrics:
+    exporter: otlp
+  logs:
+    exporter: none
+  exporter:
+    otlp:
+      endpoint: http://${JAEGER_SERVICE:jaeger}:4318
