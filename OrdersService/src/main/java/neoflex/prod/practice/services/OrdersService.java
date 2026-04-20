@@ -13,6 +13,8 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @Slf4j
 public class OrdersService {
@@ -32,17 +34,20 @@ public class OrdersService {
     }
 
     public void saveOrder(OrdersRequest request) {
-        log.atLevel(Level.INFO).log("Сохранение заявки c idOrder = {}", request.getIdOrder());
+        UUID orderId = UUID.randomUUID();
+        log.atLevel(Level.INFO).log("Сохранение заявки c idOrder = {}", orderId);
         OrdersEntity ordersEntity = ordersMapper.toEntity(request);
+        ordersEntity.setId(orderId);
         ordersRepository.save(ordersEntity);
-        log.atLevel(Level.INFO).log("Заявка сохранена c idOrder = {}", request.getIdOrder());
+        log.atLevel(Level.INFO).log("Заявка сохранена c idOrder = {}", orderId);
     }
 
     @Transactional
     public OrdersResponse order(OrdersRequest request) {
         try {
             ReserveProductDto dto = ordersMapper.toReserveProductDto(request);
-            log.atLevel(Level.INFO).log("Отправка сообщения с idOrder = {}", request.getIdOrder());
+            log.atLevel(Level.INFO).log("Отправка сообщения с idProduct = {} и count = {}",
+                    request.getIdProduct(), request.getCount());
             kafkaTemplate.send(reserveProductTopic, dto);
             saveOrder(request);
             return new OrdersResponse(request, OrdersResponse.StatusEnum.SUCCESS);

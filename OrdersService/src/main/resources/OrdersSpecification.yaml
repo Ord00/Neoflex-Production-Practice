@@ -37,15 +37,10 @@ components:
     OrdersRequest:
       type: object
       required:
-        - id_order
         - id_product
         - count
         - id_user
       properties:
-        id_order:
-          type: string
-          format: uuid
-          example: 550e8400-e29b-41d4-a716-446655440000
         id_product:
           type: string
           format: uuid
