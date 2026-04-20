@@ -3,16 +3,12 @@ LABEL authors="Ord00"
 
 WORKDIR /app
 
-COPY pom.xml .
-COPY ./Model/pom.xml ./Model/
-COPY ./ProductService/pom.xml ./ProductService/
+COPY ./Model ./Model/
+COPY ./ProductService ./ProductService/
 
-RUN mvn dependency:go-offline -B
+RUN cd Model && mvn clean install
 
-COPY ./Model/src ./Model/src
-COPY ./ProductService/src ./ProductService/src
-
-RUN mvn clean package -pl ProductService -am
+RUN cd ProductService && mvn clean package
 
 FROM eclipse-temurin:17-jre-jammy AS final
 
