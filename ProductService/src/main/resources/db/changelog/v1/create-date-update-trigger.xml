@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="create-date-update-function" author="Ord00">
+        <sql>
+            CREATE OR REPLACE FUNCTION update_date_time_last_change()
+            RETURNS TRIGGER AS $$
+            BEGIN
+                NEW.date_time_last_change = NOW();
+            RETURN NEW;
+            END;
+            $$ LANGUAGE plpgsql;
+        </sql>
+    </changeSet>
+
+    <changeSet id="create-date-update-trigger" author="Ord00">
+        <sql>
+            CREATE TRIGGER trigger_update_products_last_change
+                BEFORE UPDATE ON products
+                FOR EACH ROW
+                EXECUTE FUNCTION update_date_time_last_change();
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
