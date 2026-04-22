@@ -16,7 +16,7 @@ services:
       kafka:
         condition: service_healthy
     ports:
-      - "8081:8081"
+      - "8082:8082"
     networks:
       - app-network
       - orders-network
@@ -38,7 +38,7 @@ services:
       kafka:
         condition: service_healthy
     ports:
-      - "8082:8082"
+      - "8083:8083"
     networks:
       - app-network
       - products-network
@@ -59,6 +59,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       CLUSTER_ID: ${KAFKA_CLUSTER_ID}
       KAFKA_LOG_DIRS: /var/lib/kafka/data
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
     volumes:
       - kafka_data:/var/lib/kafka/data
     networks:
@@ -76,6 +77,20 @@ services:
       - "8080:8080"
     environment:
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+    networks:
+      - app-network
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:7.7.8
+    container_name: schema-registry
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:9092
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+    depends_on:
+      - kafka
     networks:
       - app-network
 
