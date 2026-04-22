@@ -1,7 +1,7 @@
 package neoflex.prod.practice.controllers;
 
-import neoflex.prod.practice.OrdersRequest;
-import neoflex.prod.practice.OrdersResponse;
+import neoflex.prod.practice.dto.OrdersRequest;
+import neoflex.prod.practice.dto.OrdersResponse;
 import neoflex.prod.practice.services.OrdersService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

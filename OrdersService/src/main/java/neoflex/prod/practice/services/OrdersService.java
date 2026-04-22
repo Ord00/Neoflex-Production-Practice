@@ -2,8 +2,8 @@ package neoflex.prod.practice.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import neoflex.prod.practice.OrdersRequest;
-import neoflex.prod.practice.OrdersResponse;
+import neoflex.prod.practice.dto.OrdersRequest;
+import neoflex.prod.practice.dto.OrdersResponse;
 import neoflex.prod.practice.entities.OrdersEntity;
 import neoflex.prod.practice.mappers.OrdersMapper;
 import neoflex.prod.practice.avro.ReserveProductDto;
