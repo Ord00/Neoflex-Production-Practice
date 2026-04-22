@@ -1,10 +1,9 @@
-
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     username: ${PG_USER}
     password: ${PG_PASSWORD}
-    url: jdbc:postgresql://${PRODUCTS_SERVICE:localhost}:5432/${PRODUCTS_DB}
+    url: jdbc:postgresql://${ORDERS_SERVICE:localhost}:5432/${ORDERS_DB}
 
   jpa:
     hibernate:
@@ -26,7 +25,7 @@ management:
 otel:
   resource:
     attributes:
-      service.name: ProductService
+      service.name: OrdersService
   traces:
     exporter: otlp
   metrics:
