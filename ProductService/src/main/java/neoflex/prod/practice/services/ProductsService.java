@@ -19,14 +19,6 @@ public class ProductsService {
         this.productsRepository = productsRepository;
     }
 
-    private void countUpdate(ProductsEntity product, int reserveCount) {
-        int oldCount = product.getCount();
-        int newCount = oldCount - reserveCount;
-        log.atLevel(Level.INFO).log("Изменение count продукта (idProduct = {}) c {}, на {}",
-                product.getId(), oldCount, newCount);
-        product.setCount(newCount);
-    }
-
     @Transactional
     public void reserveProduct(UUID idProduct, int count) {
         log.atLevel(Level.INFO).log("Поиск продукта для резервирования c idProduct = {}", idProduct);
@@ -39,6 +31,14 @@ public class ProductsService {
         } else {
             log.atLevel(Level.ERROR).log("Продукт с idProduct = {} не найден", idProduct);
         }
+    }
+
+    private void countUpdate(ProductsEntity product, int reserveCount) {
+        int oldCount = product.getCount();
+        int newCount = oldCount - reserveCount;
+        log.atLevel(Level.INFO).log("Изменение count продукта (idProduct = {}) c {}, на {}",
+                product.getId(), oldCount, newCount);
+        product.setCount(newCount);
     }
 }
 
