@@ -10,6 +10,7 @@ services:
       ORDERS_DB: ${ORDERS_DB}
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       JAEGER_SERVICE: jaeger
+      SCHEMA_REGISTRY_SERVICE: schema-registry
     depends_on:
       orders-db:
         condition: service_healthy
@@ -32,6 +33,7 @@ services:
       PRODUCTS_DB: ${PRODUCTS_DB}
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       JAEGER_SERVICE: jaeger
+      SCHEMA_REGISTRY_SERVICE: schema-registry
     depends_on:
       products-db:
         condition: service_healthy
