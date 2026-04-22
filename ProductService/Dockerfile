@@ -12,8 +12,6 @@ RUN cd ProductService && mvn clean package
 
 FROM eclipse-temurin:17-jre-jammy AS final
 
-VOLUME /tmp
-
 RUN groupadd -r products && useradd -r -g products products
 USER products
 

@@ -12,8 +12,6 @@ RUN cd OrdersService && mvn clean package
 
 FROM eclipse-temurin:17-jre-jammy AS final
 
-VOLUME /tmp
-
 RUN groupadd -r orders && useradd -r -g orders orders
 USER orders
 
