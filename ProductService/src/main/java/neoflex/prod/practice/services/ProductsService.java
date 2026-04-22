@@ -1,5 +1,6 @@
 package neoflex.prod.practice.services;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import neoflex.prod.practice.entities.ProductsEntity;
 import neoflex.prod.practice.repositories.ProductsRepository;
@@ -12,12 +13,9 @@ import java.util.UUID;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ProductsService {
     private final ProductsRepository productsRepository;
-
-    public ProductsService(ProductsRepository productsRepository) {
-        this.productsRepository = productsRepository;
-    }
 
     @Transactional
     public void reserveProduct(UUID idProduct, int count) {
