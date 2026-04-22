@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${PG_USER}
+    password: ${PG_PASSWORD}
+    url: jdbc:postgresql://${PRODUCTS_SERVICE:localhost}:5432/${PRODUCTS_DB}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/changelog-master.xml
