@@ -15,5 +15,5 @@ kafka:
       product: reserve-product
 
 server:
-  port: 8082
+  port: 8083
   url: "http://localhost:${server.port}"
