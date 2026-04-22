@@ -11,6 +11,7 @@
     <modules>
         <module>OrdersService</module>
         <module>ProductService</module>
+        <module>Model</module>
     </modules>
 
     <parent>

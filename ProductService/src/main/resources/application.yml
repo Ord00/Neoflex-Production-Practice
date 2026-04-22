@@ -1,4 +1,3 @@
-
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -14,7 +13,22 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/changelog-master.xml
-    
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: reserve-product-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+    properties:
+      schema.registry.url: {SCHEMA_REGISTRY_SERVICE:localhost}:8081
+      specific.avro.reader: true
+
+kafka:
+  topics:
+    reserve:
+      product: reserve-product
+
 management:
   tracing:
     sampling:
@@ -36,3 +50,7 @@ otel:
   exporter:
     otlp:
       endpoint: http://${JAEGER_SERVICE:jaeger}:4318
+
+server:
+  port: 8083
+  url: "http://localhost:${server.port}"
