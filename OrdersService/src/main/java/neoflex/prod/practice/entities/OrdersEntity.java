@@ -4,16 +4,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.Instant;
 import java.util.UUID;
 
 @Entity
 @Table(name = "orders")
-@Getter
-@Setter
+@Data
 public class OrdersEntity {
     @Id
     @Column(name = "id_order", nullable = false)
