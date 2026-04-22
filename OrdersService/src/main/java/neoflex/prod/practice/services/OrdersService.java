@@ -1,5 +1,6 @@
 package neoflex.prod.practice.services;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import neoflex.prod.practice.dto.OrdersRequest;
 import neoflex.prod.practice.dto.OrdersResponse;
@@ -16,20 +17,13 @@ import java.util.UUID;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class OrdersService {
     private final OrdersRepository ordersRepository;
     private final OrdersMapper ordersMapper;
     private final KafkaTemplate<String, ReserveProductDto> kafkaTemplate;
     @Value("${kafka.topics.reserve.product}")
     private String reserveProductTopic;
-
-    public OrdersService(OrdersRepository ordersRepository,
-                         OrdersMapper ordersMapper,
-                         KafkaTemplate<String, ReserveProductDto> kafkaTemplate) {
-        this.ordersRepository = ordersRepository;
-        this.ordersMapper = ordersMapper;
-        this.kafkaTemplate = kafkaTemplate;
-    }
 
     public void saveOrder(OrdersRequest request) {
         UUID orderId = UUID.randomUUID();
