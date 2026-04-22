@@ -13,7 +13,24 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/changelog-master.xml
-    
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      properties:
+        schema.registry.url: ${SCHEMA_REGISTRY_SERVICE:localhost}:8081
+
+kafka:
+  topics:
+    reserve:
+      product: reserve-product
+
+server:
+  port: 8082
+  url: "http://localhost:${server.port}"
+
 management:
   tracing:
     sampling:

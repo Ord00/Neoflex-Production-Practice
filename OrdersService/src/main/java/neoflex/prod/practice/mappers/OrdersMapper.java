@@ -1,0 +1,13 @@
+package neoflex.prod.practice.mappers;
+
+import neoflex.prod.practice.OrdersRequest;
+import neoflex.prod.practice.avro.ReserveProductDto;
+import neoflex.prod.practice.entities.OrdersEntity;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingConstants;
+
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+public interface OrdersMapper {
+    OrdersEntity toEntity(OrdersRequest ordersRequest);
+    ReserveProductDto toReserveProductDto(OrdersRequest ordersRequest);
+}
