@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
@@ -13,8 +14,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "products")
-@Setter
-@Getter
+@Data
 public class ProductsEntity {
     @Id
     @Column(name = "id_product", nullable = false)
