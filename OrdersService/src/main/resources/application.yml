@@ -5,7 +5,7 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
       properties:
-        schema.registry.url: ${SCHEMA_REGISTRY_SERVICE:localhost}:8081
+        schema.registry.url: http://${SCHEMA_REGISTRY_SERVICE:localhost}:8081
 
 kafka:
   topics:
