@@ -1,10 +1,11 @@
-
+<<<<<<< feature/product-main-logic
+spring:
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
-    username: ${PG_USER}
-    password: ${PG_PASSWORD}
-    url: jdbc:postgresql://${PRODUCTS_SERVICE:localhost}:5432/${PRODUCTS_DB}
+  driver-class-name: org.postgresql.Driver
+  username: ${PG_USER}
+  password: ${PG_PASSWORD}
+  url: jdbc:postgresql://${PRODUCTS_SERVICE:localhost}:5432/${PRODUCTS_DB}
 
   jpa:
     hibernate:
@@ -14,6 +15,25 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/changelog-master.xml
+    
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: reserve-product-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+    properties:
+      schema.registry.url: http://${SCHEMA_REGISTRY_SERVICE:localhost}:8081
+      specific.avro.reader: true
+
+kafka:
+  topics:
+    reserve:
+      product: reserve-product
+
+server:
+  port: 8083
+  url: "http://localhost:${server.port}"
     
 management:
   tracing:
@@ -30,7 +50,7 @@ otel:
   traces:
     exporter: otlp
   metrics:
-    exporter: otlp
+    exporter: none
   logs:
     exporter: none
   exporter:
