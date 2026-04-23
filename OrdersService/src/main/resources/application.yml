@@ -46,7 +46,7 @@ otel:
   traces:
     exporter: otlp
   metrics:
-    exporter: otlp
+    exporter: none
   logs:
     exporter: none
   exporter:
