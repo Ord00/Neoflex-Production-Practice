@@ -19,23 +19,20 @@ public class ProductsService {
     @Transactional
     public void reserveProduct(UUID idProduct, int count) {
         log.info("Поиск продукта для резервирования c idProduct = {}", idProduct);
-
         Optional<ProductsEntity> productsEntity = productsRepository.findById(idProduct);
         if (productsEntity.isPresent()) {
             ProductsEntity product = productsEntity.get();
-            countUpdate(product, count);
+            product.setCount(countUpdate(product.getId(), product.getCount(), count));
             productsRepository.save(product);
         } else {
             log.error("Продукт с idProduct = {} не найден", idProduct);
         }
     }
 
-    private void countUpdate(ProductsEntity product, int reserveCount) {
-        int oldCount = product.getCount();
+    private int countUpdate(UUID idProduct, int oldCount, int reserveCount) {
         int newCount = oldCount - reserveCount;
-        log.info("Изменение count продукта (idProduct = {}) c {}, на {}",
-                product.getId(), oldCount, newCount);
-        product.setCount(newCount);
+        log.info("Изменение count продукта (idProduct = {}) c {}, на {}", idProduct, oldCount, newCount);
+        return newCount;
     }
 }
 
