@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="insert-init-products-data" author="Ord00">
+        <insert tableName="products">
+            <column name="id_product" valueComputed="gen_random_uuid()"/>
+            <column name="name" value="pineapple"/>
+            <column name="count" value="25"/>
+        </insert>
+        <insert tableName="products">
+            <column name="id_product" valueComputed="gen_random_uuid()"/>
+            <column name="name" value="cucumber"/>
+            <column name="count" value="3"/>
+        </insert>
+        <insert tableName="products">
+            <column name="id_product" valueComputed="gen_random_uuid()"/>
+            <column name="name" value="pen"/>
+            <column name="count" value="5"/>
+        </insert>
+        <insert tableName="products">
+            <column name="id_product" valueComputed="gen_random_uuid()"/>
+            <column name="name" value="keyboard"/>
+            <column name="count" value="9"/>
+        </insert>
+        <insert tableName="products">
+            <column name="id_product" valueComputed="gen_random_uuid()"/>
+            <column name="name" value="owl"/>
+            <column name="count" value="1"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${PG_USER}
+    password: ${PG_PASSWORD}
+    url: jdbc:postgresql://${ORDERS_SERVICE:localhost}:5432/${ORDERS_DB}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/changelog-master.xml
+    
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: http://${JAEGER_SERVICE:localhost}:4317
+
+otel:
+  resource:
+    attributes:
+      service.name: OrdersService
+  traces:
+    exporter: otlp
+  metrics:
+    exporter: otlp
+  logs:
+    exporter: none
+  exporter:
+    otlp:
+      endpoint: http://${JAEGER_SERVICE:jaeger}:4318
